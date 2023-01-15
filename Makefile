@@ -1,5 +1,6 @@
-default: test 
-test:
-	@echo testing
+default: test
+
+test: sweet
+	$(MAKE) -C $<
 
 .PHONY: test
