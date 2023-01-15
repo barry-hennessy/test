@@ -15,3 +15,8 @@ possible.
 
 Keep it lean, use `testing.T`, get it done. And sleep soundly.
 
+## Modules
+
+### [Sweet](./sweet)
+A simple test suite 'framework'; if you can even call it a framework.
+`t.Run` on steroids.
