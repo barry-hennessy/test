@@ -148,14 +148,14 @@ func TestUseCases(t *testing.T) {
 		}
 
 		t.Run("map of dependencies", func(t *testing.T) {
-			depMap := sweet.DepFactories{
+			depMap := sweet.DepFactories[interface{}]{
 				"A": sweet.FactoryForMap(depAFactory),
 				"B": sweet.FactoryForMap(depBFactory),
 			}
 			// @TODO: instead of having `DepMapFactory` is it possible for
 			// `sweet.DepFactories` to implement some interface that we look for and
 			// use as a factory method?
-			depFactory := sweet.DepMapFactory(depMap)
+			depFactory := sweet.DepMapFactory[interface{}](depMap)
 
 			sweet.Run(t, "instantiate correctly", depFactory, func(t *testing.T, deps sweet.DepsMapped) {
 				if deps["A"].(*dep).state != "depA" {
