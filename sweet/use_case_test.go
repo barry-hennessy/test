@@ -147,6 +147,44 @@ func TestUseCases(t *testing.T) {
 			return d
 		}
 
+		t.Run("map of dependencies", func(t *testing.T) {
+			depMap := sweet.DepFactories{
+				"A": sweet.FactoryForMap(depAFactory),
+				"B": sweet.FactoryForMap(depBFactory),
+			}
+			// @TODO: instead of having `DepMapFactory` is it possible for
+			// `sweet.DepFactories` to implement some interface that we look for and
+			// use as a factory method?
+			depFactory := sweet.DepMapFactory(depMap)
+
+			sweet.Run(t, "instantiate correctly", depFactory, func(t *testing.T, deps sweet.DepsMapped) {
+				if deps["A"].(*dep).state != "depA" {
+					t.Error("dep map was not instantiated correctly")
+				}
+
+				if deps["B"].(*otherDep).state != "depB" {
+					t.Error("dep map was not instantiated correctly")
+				}
+			})
+
+			t.Run("instiantiate new deps every time", func(t *testing.T) {
+				deps := []sweet.DepsMapped{}
+				for i := 0; i < 2; i++ {
+					sweet.Run(t, fmt.Sprintf("run %d", i), depFactory, func(t *testing.T, d sweet.DepsMapped) {
+						deps = append(deps, d)
+					})
+				}
+
+				if deps[0]["A"].(*dep).timeInstantiated.Equal(deps[1]["A"].(*dep).timeInstantiated) {
+					t.Error("deps were not instantiated correctly")
+				}
+
+				if deps[0]["B"].(*otherDep).timeInstantiated.Equal(deps[1]["B"].(*otherDep).timeInstantiated) {
+					t.Error("deps were not instantiated correctly")
+				}
+			})
+		})
+
 		t.Run("struct of dependencies", func(t *testing.T) {
 			type depStruct struct {
 				A *dep
