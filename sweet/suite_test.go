@@ -79,3 +79,27 @@ func TestRun(t *testing.T) {
 		}
 	})
 }
+
+func BenchmarkRun(b *testing.B) {
+	b.Run("DepFactory gets called", func(b *testing.B) {
+		depFactory := func(t *testing.B) *depsF {
+			return &depsF{
+				b: true,
+			}
+		}
+
+		for i := 0; i < b.N; i++ {
+			innerCalled := false
+
+			suite.Run(b, "everything gets called", depFactory, func(t *testing.B, deps *depsF) {
+				innerCalled = true
+			})
+
+			if !innerCalled {
+				b.Error("the inner test function was never called")
+				b.Fail()
+			}
+		}
+
+	})
+}
