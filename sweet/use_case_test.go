@@ -2,8 +2,8 @@ package sweet_test
 
 import (
 	"fmt"
+	"math/rand"
 	"testing"
-	"time"
 
 	"github.com/barry-hennessy/test/sweet"
 )
@@ -120,18 +120,18 @@ func TestUseCases(t *testing.T) {
 		// Think a struct like this per database/foreign system. Or even one for
 		// each kind of docker based testcontainer.
 		type dep struct {
-			state            string
-			timeInstantiated time.Time
+			state string
+			rand  float64
 		}
 
 		type otherDep struct {
-			state            string
-			timeInstantiated time.Time
-			somethingElse    bool
+			state         string
+			rand          float64
+			somethingElse bool
 		}
 
 		depAFactory := func(t *testing.T) *dep {
-			d := &dep{"depA", time.Now()}
+			d := &dep{"depA", rand.Float64()}
 			t.Cleanup(func() {
 				d.state = d.state + " cleaned up"
 			})
@@ -139,7 +139,7 @@ func TestUseCases(t *testing.T) {
 		}
 
 		depBFactory := func(t *testing.T) *otherDep {
-			d := &otherDep{"depB", time.Now(), true}
+			d := &otherDep{"depB", rand.Float64(), true}
 			t.Cleanup(func() {
 				d.state = d.state + " cleaned up"
 			})
@@ -177,11 +177,11 @@ func TestUseCases(t *testing.T) {
 					})
 				}
 
-				if deps[0].A.timeInstantiated.Equal(deps[1].A.timeInstantiated) {
+				if deps[0].A.rand == deps[1].A.rand {
 					t.Error("deps were not instantiated correctly")
 				}
 
-				if deps[0].B.timeInstantiated.Equal(deps[1].B.timeInstantiated) {
+				if deps[0].B.rand == deps[1].B.rand {
 					t.Error("deps were not instantiated correctly")
 				}
 			})
