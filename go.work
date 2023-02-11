@@ -1,3 +1,6 @@
-go 1.19
+go 1.18
 
-use ./sweet
+use (
+	./sweet
+	./sweet/factories/testcontainers/redis
+)
