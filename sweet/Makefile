@@ -46,3 +46,7 @@ test:
 .PHONY: clean
 clean:
 	rm -rvf build coverprofile.txt
+
+.PHONY: tidy
+tidy:
+	go mod tidy

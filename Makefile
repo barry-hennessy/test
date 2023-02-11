@@ -1,6 +1,12 @@
 default: test
 
-test: sweet
-	$(MAKE) -C $<
+TOPTARGETS := test tidy
 
-.PHONY: test
+SUBDIRS := sweet
+
+$(TOPTARGETS): $(SUBDIRS)
+$(SUBDIRS):
+	$(MAKE) -C $@ $(MAKECMDGOALS)
+
+
+.PHONY: $(TOPTARGETS) $(SUBDIRS)
