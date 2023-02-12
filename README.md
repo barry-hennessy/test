@@ -23,3 +23,13 @@ Keep it lean, use `testing.T`, get it done. And sleep soundly.
 ### [Sweet](./sweet)
 A simple test suite 'framework'; if you can even call it a framework.
 `t.Run` on steroids.
+
+### [Sweet testcontainers](./sweet/factories/tc)
+Run testcontainers with `sweet`. All containers start up as soon as they're
+ready to be tested and clean up after themselves.
+
+Roll your own container or use the pre-set up ones:
+ - [redis](sweet/factories/tc/redis)
+ - [mongodb](sweet/factories/tc/mongodb)
+ - [postgres](sweet/factories/tc/postgres)
+ - [cockroachdb](sweet/factories/tc/cockroachdb)

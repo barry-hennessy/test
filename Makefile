@@ -2,7 +2,7 @@ default: test
 
 TOPTARGETS := test tidy
 
-SUBDIRS := sweet sweet/factories/testcontainers/redis
+SUBDIRS := sweet sweet/factories/tc
 
 $(TOPTARGETS): $(SUBDIRS)
 $(SUBDIRS):
