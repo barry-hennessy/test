@@ -2,5 +2,5 @@ go 1.18
 
 use (
 	./sweet
-	./sweet/factories/testcontainers/redis
+	./sweet/factories/tc
 )
