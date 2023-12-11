@@ -8,6 +8,7 @@ import (
 	"github.com/barry-hennessy/test/sweet/factories/tc"
 	"github.com/barry-hennessy/test/sweet/factories/tc/cockroachdb"
 	"github.com/barry-hennessy/test/sweet/factories/tc/mongodb"
+	"github.com/barry-hennessy/test/sweet/factories/tc/nats"
 	"github.com/barry-hennessy/test/sweet/factories/tc/postgres"
 	"github.com/barry-hennessy/test/sweet/factories/tc/redis"
 	"github.com/testcontainers/testcontainers-go"
@@ -26,6 +27,7 @@ func TestNewFactory(t *testing.T) {
 			"postgres:13": postgres.NewPostgresContainer("postgres:13"),
 			"postgres:14": postgres.NewPostgresContainer("postgres:14"),
 			"postgres:15": postgres.NewPostgresContainer("postgres:15"),
+			"nats:2":      nats.NewNatsContainer("nats:2"),
 		}
 
 		for name, container := range factories {
