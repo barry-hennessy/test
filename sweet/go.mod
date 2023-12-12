@@ -1,3 +1,3 @@
 module github.com/barry-hennessy/test/sweet
 
-go 1.19
+go 1.18

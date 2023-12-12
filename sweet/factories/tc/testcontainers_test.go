@@ -2,6 +2,7 @@ package tc_test
 
 import (
 	"context"
+	"runtime"
 	"testing"
 
 	"github.com/barry-hennessy/test/sweet"
@@ -15,6 +16,12 @@ import (
 )
 
 func TestNewFactory(t *testing.T) {
+	if runtime.GOOS == "windows" {
+		// See https://github.com/barry-hennessy/test/issues/11
+		t.Skip()
+		return
+	}
+
 	ctx := context.Background()
 	t.Run("containers start", func(t *testing.T) {
 		factories := map[string]tc.Container{

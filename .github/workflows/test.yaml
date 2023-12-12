@@ -18,7 +18,7 @@ jobs:
   run-test:
     strategy:
       matrix:
-        go: ['>=1.19', '>=1.18']
+        go: ['1.21', '1.20', '1.19', '1.18']
         os: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
@@ -34,8 +34,9 @@ jobs:
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v3
         with:
-          version: v1.48
+          version: v1.55
           working-directory: sweet
+          args: --timeout=30m
 
       - name: make-test
         run: make test
