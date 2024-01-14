@@ -11,3 +11,6 @@ The containers
      ready
  - start tests as soon as they're ready to serve traffic
    - client tests should not be waiting because a factory is calling `time.Sleep`
+
+### Links
+ - [Project overview and related information](https://barryhennessy.com/projects/test-sweet-containers/)
