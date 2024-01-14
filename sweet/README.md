@@ -65,3 +65,6 @@ reused throughout every project.
 If you want to take some action without returning a dep you're free to.
 E.g: outputting some text, asserting some value (as usual with `testing.T`),
 waiting for a dependency to spin up and be ready.
+
+### Links
+ - [Project overview and background](https://barryhennessy.com/projects/test-sweet/)
