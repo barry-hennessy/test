@@ -43,14 +43,15 @@ sweet.Run(t, "when it is on fire", flammibleFactory, func(t *testing.T, f *flamm
         return f
     }
 
-    setFire(f)
 
     sweet.Run(t, "the alarm goes off", depFactory, func(t *testing.T, d *deps) {
-       // ... 
+        startFire(d)
+        // ...
     })
 
     sweet.Run(t, "the fire brigade comes", depFactory, func(t *testing.T, d *deps) {
-       // ... 
+        startFire(d)
+        // ...
     })
 })
 ```
