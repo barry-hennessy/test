@@ -29,7 +29,7 @@ func NewContainer(t *testing.T, ctx context.Context, c Container) testcontainers
 
 	t.Cleanup(func() {
 		if err := c.Close(ctx, container); err != nil {
-			t.Fatalf("failed to terminate container: %s", err)
+			t.Logf("failed to terminate container: %s", err)
 		}
 	})
 
