@@ -1,92 +1,40 @@
-# Sweet; a testing suite
+# Sweet; a simple test suite
 
 `sweet` is a simple test suite 'framework'; if you can even call it
 a framework.
 
-Simply put `sweet` supplies the most 'test suite' functionality possible,
+`sweet` supplies the most 'test suite' functionality possible,
 while staying close to standard golang testing idioms.
 
-Sweet helps you set up and reuse test dependencies with minimal risk of mutating
-shared state between runs. It stays as close to go's standard `testing` package
-as possible, there's no big up front work to slow you down.
-Just drop it in and get going.
+The focus is on setting up, sharing and reusing test dependencies.
+With the goal of minimising the risk of accidentally mutating
+shared state between runs. And promoting reuse of test boilerplate to
+speed up testing, and help get started with trickier testing situations.
 
-## Manage state; your tests dependencies
-Many of the mistakes made writing tests come from accidentally sharing state
-between runs. Either by aliasing a variable in a for loop, sharing one struct
-for all tests or testing against the same mock database.
+There's no big up front work to implement it, and when you don't need it you
+can stick to `testing.T` as usual.
 
-Sweet minimises the risk of one test sharing state with another, because the factories
-create new objects for each test. You could go out of your way to use pointers
-to globals, but... don't!
+# Use
 
-Managing dependencies `Before` and `After` each test is handled by a factory
-function that returns new test dependencies (`Before`) and optionally calls
-`t.Cleanup` on them (`After`).
+See the [package example](https://pkg.go.dev/github.com/barry-hennessy/test/sweet#example-package)
+for a quick intro. And other examples for details.
 
-The test call itself is typed. No need to cast.
+# Reuse & skipping boilerplate
 
-```go
-flammibleFactory := func(t *testing.T) *flammable {
-    f := &flammable{}
-    t.Cleanup(func() {
-        putOutFlames(f)
-    })
-    return f
-}
+`DepFactory` functions are the interface that can be centralised, reused
+and shared.
 
-sweet.Run(t, "it is on fire", flammibleFactory, func(t *testing.T, f *flammable) {
-    f.Ignite()
-    // ... 
-})
+For example common database or other external dependencies can have a set of
+stock test containers that can spin themselves up for every test and clean
+themselves after. All defined once and reused throughout every project.
+The same goes for fixture loaders, http Servers etc.
 
-sweet.Run(t, "the fire has spread", flammibleFactory, func(t *testing.T, f *flammable) {
-    f.Ignite()
-    // ... 
-})
-// ...
-```
+This is probably sweet's biggest power: a shared pattern for seperating test
+setup from the test itself. That pattern being a building block you can stack up
+and go higher with.
 
-`BeforeSuite` and `AfterSuite` functionality is just another level
-of `sweet.Run` calls. In fact you can nest and organise your test dependencies
-as much or as little as you like.
+See:
+  - [Factories for testcontainers](github.com/barry-hennessy/test/sweet/factories/tc)
 
-```go
-sweet.Run(t, "when it is on fire", flammibleFactory, func(t *testing.T, f *flammable) {
-    depFactory := func(t *testing.T) *flammable {
-        f := &deps{
-            alarm: alarm{},
-            fireBrigade: fireBrigade{},
-        }
-
-        t.Cleanup(func() {
-            f.alarm.reset()
-            f.fireBrigade.reset()
-        })
-
-        return f
-    }
-
-
-    sweet.Run(t, "the alarm goes off", depFactory, func(t *testing.T, d *deps) {
-        d.alarm.Trigger()
-        // ...
-    })
-
-    sweet.Run(t, "the fire brigade comes", depFactory, func(t *testing.T, d *deps) {
-        d.alarm.Trigger()
-        d.fireBrigade.Go()
-        // ...
-    })
-})
-```
-
-Sets of dependencies can be passed in as custom structs, slices or maps. 
-
-The definition of factory functions can be centralised. For example common database
-or other external dependency can have a set of stock test containers that
-can spin themselves up for every test and clean themselves after. ALl defined 
-once and reused throughout every project.
-
-### Links
+## Links
  - [Project overview and background](https://barryhennessy.com/projects/test-sweet/)
