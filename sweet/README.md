@@ -1,5 +1,7 @@
 # Sweet; a simple test suite
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/barry-hennessy/test/sweet.svg)](https://pkg.go.dev/github.com/barry-hennessy/test/sweet)
+
 `sweet` is a simple test suite 'framework'; if you can even call it
 a framework.
 
