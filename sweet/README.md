@@ -34,7 +34,7 @@ setup from the test itself. That pattern being a building block you can stack up
 and go higher with.
 
 See:
-  - [Factories for testcontainers](github.com/barry-hennessy/test/sweet/factories/tc)
+  - [Factories for testcontainers](https://github.com/barry-hennessy/test/tree/main/sweet/factories/tc)
 
 ## Links
  - [Project overview and background](https://barryhennessy.com/projects/test-sweet/)
