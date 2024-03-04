@@ -10,8 +10,7 @@ while staying close to standard golang testing idioms.
 
 The focus is on setting up, sharing and reusing test dependencies.
 With the goal of minimising the risk of accidentally mutating
-shared state between runs. And promoting reuse of test boilerplate to
-speed up testing, and help get started with trickier testing situations.
+shared state between runs.
 
 There's no big up front work to implement it, and when you don't need it you
 can stick to `testing.T` as usual.
