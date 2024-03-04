@@ -219,12 +219,13 @@ func ExampleRun_functional() {
 // `BeforeSuite` or `AfterSuite` functions that set up some state for all your
 // tests and clean up at the end.
 //
-// You can easily do this with sweet, but it's worth pointing out that this
-// undermines the _fresh dependencies_ that sweet tries to provide.
+// You can easily do this with sweet, it's just another level of [sweet.Run]
+// calls. In fact you can nest and organise your test dependencies as much or as
+// little as you like.
 //
-// `BeforeSuite` and `AfterSuite` functionality is just another level
-// of `sweet.Run` calls. In fact you can nest and organise your test dependencies
-// as much or as little as you like.
+// Just be aware that this undermines the _fresh dependencies_ that sweet tries
+// to provide. The dependencies of the outer calls are shared between the inner
+// calls.
 func ExampleRun_pitfall_nesting() {
 	t := &testing.T{}
 
@@ -269,8 +270,8 @@ func ExampleRun_pitfall_nesting() {
 // An alternative to `BeforeSuite`/`AfterSuite` that avoids accidental sharing
 // of upper level dependencies.
 //
-// Instead of nesting your `sweet.Run` calls, nesting your dependencies can achieve
-// the same effect; just with a fresh top level dependency.
+// Instead of nesting your [sweet.Run] calls, nesting your dependency factories
+// can achieve the same effect; just with a fresh top level dependency.
 func ExampleRun_pitfall_nesting_alternative() {
 	t := &testing.T{}
 
