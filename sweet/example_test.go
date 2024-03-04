@@ -226,7 +226,7 @@ func ExampleRun_functional() {
 // Just be aware that this undermines the _fresh dependencies_ that sweet tries
 // to provide. The dependencies of the outer calls are shared between the inner
 // calls.
-func ExampleRun_pitfall_nesting() {
+func ExampleRun_pitfallNesting() {
 	t := &testing.T{}
 
 	flammableFactory := func(t *testing.T) *flammable {
@@ -272,7 +272,7 @@ func ExampleRun_pitfall_nesting() {
 //
 // Instead of nesting your [sweet.Run] calls, nesting your dependency factories
 // can achieve the same effect; just with a fresh top level dependency.
-func ExampleRun_pitfall_nesting_alternative() {
+func ExampleRun_pitfallNestingAlternative() {
 	t := &testing.T{}
 
 	fireTruckFactory := func(t *testing.T) fireTruckDeps {
