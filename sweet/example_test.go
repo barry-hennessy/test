@@ -50,7 +50,7 @@ func (f *flammable) Extinguish() {
 	f.onFire = false
 }
 
-func (_ mockEngine) Rev() {}
+func (mockEngine) Rev() {}
 
 func (t fireTruck) Vroom() {
 	t.engine.Rev()
